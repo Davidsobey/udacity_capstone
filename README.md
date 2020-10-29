@@ -1,11 +1,11 @@
 # Capstone Project
 
 ## Steps Required to run the project.
-1. Esnure Python3 is intalled on your machine
+1. Ensure Python3 is intalled on your machine
 2. Ensure Spark > 2.3.0  is installed
 3. Ensure Postgres is installed in the machine that is executing the project.
 4. Setup your database connections in the main.py (Lines 9 and 10 and 21 and 22)
-5. Unzip the `data.zip` file to the project directory
+5. Download `s3://capstoneudacityde/data/` from s3 to your local machine and place the data inside the project main directory.
 6. Execute the command `py main.py`
 
 ## Step 1: Scope the Project and Gather Data
