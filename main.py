@@ -6,6 +6,12 @@ from yaml import FullLoader, load
 
 
 def create_table(df: DataFrame, table_name: str):
+    """creates new tables for loading datasets
+
+    Args:
+        df (DataFrame): Dataframe to create table from
+        table_name (str): name of the table to be added to psql
+    """
     user = "postgres"
     password = ""
     url = "jdbc:postgresql://localhost:5432/capstone"
@@ -18,6 +24,15 @@ def create_table(df: DataFrame, table_name: str):
 
 
 def read_table(table_name: str, spark: SparkSession):
+    """reads data via spark from a psql table
+
+    Args:
+        table_name (str): name of the table
+        spark (SparkSession): spark session for creating connection to the DB
+
+    Returns:
+        df (Dataframe): resultant dataframe
+    """
     user = "postgres"
     password = ""
     url = "jdbc:postgresql://localhost:5432/capstone"
@@ -30,6 +45,14 @@ def read_table(table_name: str, spark: SparkSession):
 
 
 def build_stocks_dataframe(df: DataFrame):
+    """Creates a unified dataframe with the table name as a column and then drops the unused columns
+
+    Args:
+        df (DataFrame): Dataframe for execution
+
+    Returns:
+        df (Dataframe): resultant dataframe
+    """
     df = df.withColumn("act_symbol", substring_index(substring_index(df.filename, "/", -1), ".", 1)) \
         .withColumn('date_formatted', to_timestamp(df.Date, 'yyyy-MM-dd')) \
         .withColumn('full_date', date_format(df.Date, "yyyyMMdd").cast(IntegerType()))
